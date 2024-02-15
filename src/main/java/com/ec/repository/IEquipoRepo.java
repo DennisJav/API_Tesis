@@ -9,4 +9,6 @@ public interface IEquipoRepo {
 	Equipo buscarEquipo(Integer id);
 	void actualizarEquipo(Equipo equipo);
 	void borrarEquipo(Integer id);
+
+	Equipo buscarEquipoPorSerie(String serie);
 }

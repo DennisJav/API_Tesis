@@ -17,21 +17,16 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "requerimiento")
 public class Requerimiento {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ("req_usuario"))
 	@SequenceGenerator(name = "req_usuario", sequenceName = "req_usuario", allocationSize = 1)
 	@Column(name = "req_id")
 	private Integer id;
-
 	@Column(name = "req_numero")
 	private Integer numeroReq;
-
 	@Column(name = "req_precio_final")
 	private BigDecimal precioFinal;
-
 	//----------relaciones
-	
 	@ManyToOne
 	@JoinColumn(name = "req_usuario_id")
 	private Usuario usuario;

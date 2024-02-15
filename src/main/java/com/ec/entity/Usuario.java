@@ -45,6 +45,13 @@ public class Usuario {
 	
 	@Column(name="usua_estado")
 	private String estado;
+
+	@Column(name = "usua_identificador")
+	private String identificador;
+
+	@Column(name = "usua_direccion")
+	private String direccion;
+
 	
 	//-------Relaciones
 	
@@ -133,6 +140,22 @@ public class Usuario {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	@Override

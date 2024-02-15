@@ -19,13 +19,10 @@ public class InformeRequerimiento {
 	@SequenceGenerator(name = "info_req", sequenceName = "info_req", allocationSize = 1)
 	@Column(name = "info_id")
 	private Integer id;
-	
 	@Column(name = "info_estado")
 	private String estado;
-	
 	@Column(name = "info_diagnostico")
 	private String diagnostico;
-	
 	@Column(name = "info_observacion")
 	private String observacion;
 

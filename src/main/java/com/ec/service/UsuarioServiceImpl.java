@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import com.ec.entity.Usuario;
 import com.ec.repository.IUsuarioRepo;
 
+import java.util.List;
+
 @Service
-public class UsuarioServiceImpl implements IUsuarioService{
+public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Autowired
 	private IUsuarioRepo iUsuarioRepo;
@@ -32,11 +34,17 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	}
 
 	@Override
+	public List<Usuario> listarTodosUsuarios() {
+		return this.iUsuarioRepo.buscarTodosUsuarios();
+	}
+
+	@Override
 	public void guardarUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
 		this.iUsuarioRepo.crearUsuario(usuario);
 
 	}
+
 
 	
 	
