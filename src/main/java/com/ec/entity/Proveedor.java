@@ -1,6 +1,7 @@
 package com.ec.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +12,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table (name = "proveedor")
 public class Proveedor {
@@ -33,6 +43,10 @@ public class Proveedor {
 	
 	@Column(name = "prov_origen")
 	private String origen;
+
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	@Column(name="prov_fecha_registro")
+	private LocalDateTime fechaRegistro;
 	
 	@Column(name = "prov_precio_compra")
 	private BigDecimal precioCompra;
@@ -42,66 +56,5 @@ public class Proveedor {
 	@ManyToOne
 	@JoinColumn(name = "prov_repuesto_id")
 	private Repuesto repuesto;
-	
-	//------Get y set relaciones
-	
-	public Repuesto getRepuesto() {
-		return repuesto;
-	}
-
-	public void setRepuesto(Repuesto repuesto) {
-		this.repuesto = repuesto;
-	}
-
-	//get and set
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
-	public String getOrigen() {
-		return origen;
-	}
-
-	public void setOrigen(String origen) {
-		this.origen = origen;
-	}
-
-	public BigDecimal getPrecioCompra() {
-		return precioCompra;
-	}
-
-	public void setPrecioCompra(BigDecimal precioCompra) {
-		this.precioCompra = precioCompra;
-	}
-	
-	
 
 }

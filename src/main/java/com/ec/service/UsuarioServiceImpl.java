@@ -39,6 +39,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	}
 
 	@Override
+	public Usuario buscarPorCedula(String cedula) {
+		return this.iUsuarioRepo.buscarPorCedula(cedula);
+	}
+
+	@Override
 	public void guardarUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
 		this.iUsuarioRepo.crearUsuario(usuario);

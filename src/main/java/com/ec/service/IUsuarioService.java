@@ -11,4 +11,6 @@ public interface IUsuarioService {
 	void actualizarUsuario(Usuario usuario);
 
 	List<Usuario> listarTodosUsuarios();
+
+	Usuario buscarPorCedula(String cedula);
 }

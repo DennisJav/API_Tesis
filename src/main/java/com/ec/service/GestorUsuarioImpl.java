@@ -2,6 +2,8 @@ package com.ec.service;
 
 import com.ec.entity.Usuario;
 import com.ec.repository.IUsuarioRepo;
+import com.ec.service.dto.UsuarioTO;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,22 +14,26 @@ public class GestorUsuarioImpl implements IGestorUsuarios{
     @Autowired
     private IUsuarioRepo iUsuarioRepo;
 
+    @Autowired
+    private IUsuarioService usuarioService;
+
     @Override
-    public void crearUsuario(String nombre, String apellido, String email, String cedula, String telefono, String direccion, String tipo) {
+    @Transactional
+    public void crearUsuario(UsuarioTO usuario) {
 
         Usuario user=new Usuario();
 
-        user.setNombre(nombre);
-        user.setApellido(apellido);
-        user.setEmail(email);
-        user.setCedula(cedula);
-        user.setTelefono(telefono);
-        user.setDireccion(direccion);
-        user.setTipo(tipo);
-        user.setContrasena(cedula);
+        user.setNombre(usuario.getNombre());
+        user.setApellido(usuario.getApellido());
+        user.setEmail(usuario.getEmail());
+        user.setCedula(usuario.getCedula());
+        user.setTelefono(usuario.getTelefono());
+        user.setDireccion(usuario.getDireccion());
+        user.setTipo(usuario.getTipo());
+        user.setContrasena(usuario.getPassword());
 
-        if(tipo.equals("tecnico")){
-            user.setIdentificador(cedula.substring(cedula.length()-3).concat(apellido));
+        if(usuario.getTipo().equals("tecnico")){
+            user.setIdentificador(usuario.getCedula().substring(usuario.getCedula().length()-3).concat(usuario.getApellido()));
         }
 
         this.iUsuarioRepo.crearUsuario(user);
@@ -35,15 +41,16 @@ public class GestorUsuarioImpl implements IGestorUsuarios{
     }
 
     @Override
-    public void actualizarUsuario(Integer id, String nombre, String apellido, String cedula,String telefono, String email, String direccion) {
+    @Transactional
+    public void actualizarUsuario(UsuarioTO usuario) {
+        Usuario user = this.usuarioService.buscarPorCedula(usuario.getCedula());
 
-        Usuario user = this.iUsuarioRepo.buscarUsuario(id);
-        user.setNombre(nombre);
-        user.setApellido(apellido);
-        user.setCedula(cedula);
-        user.setTelefono(telefono);
-        user.setEmail(email);
-        user.setDireccion(direccion);
+        user.setNombre(usuario.getNombre());
+        user.setApellido(usuario.getApellido());
+        user.setCedula(usuario.getCedula());
+        user.setTelefono(usuario.getTelefono());
+        user.setEmail(usuario.getEmail());
+        user.setDireccion(usuario.getDireccion());
 
         this.iUsuarioRepo.actualizarUsuario(user);
     }

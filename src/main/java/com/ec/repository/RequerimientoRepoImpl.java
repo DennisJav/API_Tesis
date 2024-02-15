@@ -3,9 +3,13 @@ package com.ec.repository;
 import com.ec.entity.Requerimiento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.awt.font.TextHitInfo;
 
+@Repository
+@Transactional
 public class RequerimientoRepoImpl implements IRequerimientoRepo{
 
     @PersistenceContext
