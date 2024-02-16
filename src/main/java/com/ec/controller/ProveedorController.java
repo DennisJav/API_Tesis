@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -23,10 +24,17 @@ public class ProveedorController {
     private IProveedorService proveedorService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProveedorTO> crearProveedor(@RequestBody ProveedorTO proveedor){
-        HttpHeaders cabecera = new HttpHeaders();
-        cabecera.add("detailMessage","Proveedor guardado exitosamente");
-        return new ResponseEntity<>(this.proveedorService.crearProovedor(proveedor),cabecera, OK);
+    public ResponseEntity<?> crearProveedor(@RequestBody ProveedorTO proveedor){
+
+        try {
+            HttpHeaders cabecera = new HttpHeaders();
+            cabecera.add("detailMessage","Proveedor guardado exitosamente");
+            return new ResponseEntity<>(this.proveedorService.crearProovedor(proveedor),cabecera, OK);
+        } catch (Exception e) {
+            HttpHeaders cabecera = new HttpHeaders();
+            cabecera.add("detailMessage","Ya existe un proveedor la indentificacion ingresada");
+            return new ResponseEntity<>(cabecera, BAD_REQUEST);
+        }
     }
 
     @GetMapping(path = "/listar",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,5 +61,11 @@ public class ProveedorController {
         HttpHeaders cabecera = new HttpHeaders();
         cabecera.add("detailMessage","Proveedor eliminado exitosamente");
       return new ResponseEntity<>(val,cabecera,OK);
+    }
+
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<String> handleIllegalStateException(IllegalStateException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }

@@ -13,7 +13,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table (name = "repuesto")
 public class Repuesto {
@@ -52,80 +60,4 @@ public class Repuesto {
 	private List<Proveedor> proveedor;
 	
 	//-------Get y set relaciones
-	
-	public Equipo getEquipo() {
-		return equipo;
-	}
-
-	public void setEquipo(Equipo equipo) {
-		this.equipo = equipo;
-	}
-
-	public List<Proveedor> getProveedor() {
-		return proveedor;
-	}
-
-	public void setProveedor(List<Proveedor> proveedor) {
-		this.proveedor = proveedor;
-	}
-	
-	
-	//get and set
-
-	
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public BigDecimal getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(BigDecimal precio) {
-		this.precio = precio;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public BigDecimal getStock() {
-		return stock;
-	}
-
-	public void setStock(BigDecimal stock) {
-		this.stock = stock;
-	}
-
-	public BigDecimal getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(BigDecimal cantidad) {
-		this.cantidad = cantidad;
-	}
-	
-	
-	
-	
-	
-	
-
 }

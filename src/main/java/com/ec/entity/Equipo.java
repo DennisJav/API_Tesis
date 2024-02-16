@@ -13,7 +13,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "equipo")
 public class Equipo {
@@ -23,8 +31,7 @@ public class Equipo {
 	@SequenceGenerator(name = "sec_equi", sequenceName = "sec_equi", allocationSize = 1)
 	@Column(name = "equi_id")
 	private Integer id;
-	
-	
+
 	@Column(name = "equi_tipo")
 	private String tipo;
 	
@@ -50,80 +57,5 @@ public class Equipo {
 	
 	
 	//--------GET Y SET relaciones
-	
-	
-	
-	public List<DetalleRequerimiento> getDetallesReq() {
-		return detallesReq;
-	}
 
-	public void setDetallesReq(List<DetalleRequerimiento> detallesReq) {
-		this.detallesReq = detallesReq;
-	}
-
-	public List<Repuesto> getRepuestos() {
-		return repuestos;
-	}
-
-	public void setRepuestos(List<Repuesto> repuestos) {
-		this.repuestos = repuestos;
-	}
-
-	//get and set
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-
-	public String getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
-
-	public String getSerie() {
-		return serie;
-	}
-
-	public void setSerie(String serie) {
-		this.serie = serie;
-	}
-
-	public BigDecimal getPrecioReparacion() {
-		return precioReparacion;
-	}
-
-	public void setPrecioReparacion(BigDecimal precioReparacion) {
-		this.precioReparacion = precioReparacion;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

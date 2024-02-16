@@ -4,6 +4,7 @@ import com.ec.entity.Proveedor;
 import com.ec.repository.IProveedorRepo;
 import com.ec.service.dto.ProveedorTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,13 +21,19 @@ public class ProveedorServiceImpl implements IProveedorService {
     public ProveedorTO crearProovedor(ProveedorTO proveedor) {
         Proveedor prov =  Proveedor.builder()
                 .empresa(proveedor.getNombreEmpresa())
+                .tipoIdentificacion(proveedor.getTipoIdentificacion())
+                .identificacion(proveedor.getIdentificacion())
                 .telefono(proveedor.getTelefono())
                 .correo(proveedor.getCorreo())
                 .origen(proveedor.getOrigen())
                 .fechaRegistro(LocalDateTime.now())
                 .build();
-        this.iProveedorRepo.crearProveedor(prov);
-        return proveedor;
+        try{
+            this.iProveedorRepo.crearProveedor(prov);
+            return proveedor;
+        }catch(DataIntegrityViolationException e){
+            throw new IllegalArgumentException("Ya existe un proveedor con la identificación: " + proveedor.getIdentificacion());
+        }
     }
 
     @Override
@@ -48,6 +55,8 @@ public class ProveedorServiceImpl implements IProveedorService {
     public ProveedorTO modificarProveedor(ProveedorTO proveedor) {
         Proveedor prov = this.iProveedorRepo.buscarPorNombre(proveedor.getNombreEmpresa());
         prov.setCorreo(proveedor.getCorreo());
+        prov.setTipoIdentificacion(proveedor.getTipoIdentificacion());
+        prov.setIdentificacion(proveedor.getIdentificacion());
         prov.setEmpresa(proveedor.getNombreEmpresa());
         prov.setTelefono(proveedor.getTelefono());
         prov.setFechaRegistro(proveedor.getFechaRegistro());
@@ -83,6 +92,8 @@ public class ProveedorServiceImpl implements IProveedorService {
         ProveedorTO prov = ProveedorTO.builder()
                 .fechaRegistro(proveedor.getFechaRegistro())
                 .nombreEmpresa(proveedor.getEmpresa())
+                .tipoIdentificacion(proveedor.getTipoIdentificacion())
+                .identificacion(proveedor.getIdentificacion())
                 .correo(proveedor.getCorreo())
                 .origen(proveedor.getOrigen())
                 .telefono(proveedor.getTelefono())

@@ -12,10 +12,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
@@ -33,12 +32,23 @@ public class Proveedor {
 	private Integer id;
 	
 	@Column(name = "prov_empresa")
+	@NotNull
 	private String empresa;
+
+	@Column(name="prov_tipo_identificacion")
+	@NotNull
+	@Size(max = 2)
+	private String tipoIdentificacion;
+
+	@Column(name="prov_identificacion", unique = true)
+	@NotNull(message = "La identificacion es obligatoria")
+	private String identificacion;
 	
 	@Column(name = "prov_telefono")
 	private String telefono;
 	
 	@Column(name = "prov_correo")
+	@NotNull(message = "El email es obligatorio")
 	private String correo;
 	
 	@Column(name = "prov_origen")
@@ -47,9 +57,6 @@ public class Proveedor {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@Column(name="prov_fecha_registro")
 	private LocalDateTime fechaRegistro;
-	
-	@Column(name = "prov_precio_compra")
-	private BigDecimal precioCompra;
 	
 	//-------Relaciones
 	
