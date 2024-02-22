@@ -13,7 +13,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "requerimiento")
 public class Requerimiento {
@@ -34,51 +36,6 @@ public class Requerimiento {
 	@OneToMany(mappedBy = "requerimiento")
 	private List<DetalleRequerimiento> detallesReq;
 	
-	//get y set ---- relaciones
-	
-	public List<DetalleRequerimiento> getDetallesReq() {
-		return detallesReq;
-	}
-
-	public void setDetallesReq(List<DetalleRequerimiento> detallesReq) {
-		this.detallesReq = detallesReq;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-	
-	
-	// get and set 
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getNumeroReq() {
-		return numeroReq;
-	}
-
-	public void setNumeroReq(Integer numeroReq) {
-		this.numeroReq = numeroReq;
-	}
-
-	public BigDecimal getPrecioFinal() {
-		return precioFinal;
-	}
-
-	public void setPrecioFinal(BigDecimal precioFinal) {
-		this.precioFinal = precioFinal;
-	}
-
 
 	
 }

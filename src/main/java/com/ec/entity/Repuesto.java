@@ -2,17 +2,9 @@ package com.ec.entity;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -56,8 +48,12 @@ public class Repuesto {
 	private Equipo equipo;
 	
 	
-	@OneToMany(mappedBy = "repuesto")
-	private List<Proveedor> proveedor;
-	
-	//-------Get y set relaciones
+	@ManyToMany
+	@JoinTable(
+			name="repuesto_proveedor",
+			joinColumns = @JoinColumn(name = "repu_id"),
+			inverseJoinColumns = @JoinColumn(name = "prov_id")
+	)
+	private Set<Proveedor> proveedores;
+
 }
