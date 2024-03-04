@@ -19,5 +19,18 @@ public interface IProveedorRepo {
 	List<Proveedor> buscarPorNombreLista(String nombre);
 
 	Integer eliminarProveedorPorNombre(String nombreEmpresa);
+
+	Integer eliminarProveedorPorIdentificacion(Proveedor proveedor);
+
+
+	Proveedor buscarPorIdentificacion(String identificacion);
+
+	Proveedor proveedorPorCodBarraRepu(String codBarras);
+
+	List<String> listarPorNombre();
+
+	List<Proveedor> buscarPorNombreOIdentifi(String nombreOIdenti);
+
+
 	
 }

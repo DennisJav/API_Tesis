@@ -25,11 +25,10 @@ public class ProveedorController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> crearProveedor(@RequestBody ProveedorTO proveedor){
-
         try {
             HttpHeaders cabecera = new HttpHeaders();
             cabecera.add("detailMessage","Proveedor guardado exitosamente");
-            return new ResponseEntity<>(this.proveedorService.crearProovedor(proveedor),cabecera, OK);
+            return new ResponseEntity<>(this.proveedorService.crearProovedor(proveedor),null, OK);
         } catch (Exception e) {
             HttpHeaders cabecera = new HttpHeaders();
             cabecera.add("detailMessage","Ya existe un proveedor la indentificacion ingresada");
@@ -51,21 +50,41 @@ public class ProveedorController {
     }
 
     @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> eliminarPorNombre(@PathVariable String nombreEmpresa){
-
-      Integer val=  this.proveedorService.eliminarProveedorPorNombre(nombreEmpresa);
+    public ResponseEntity<Integer> eliminarPorIdentificacion(@RequestParam String identificacion){
+      Integer val=  this.proveedorService.eliminarProveedorPorIdentificacion(identificacion);
+        HttpHeaders cabecera = new HttpHeaders();
 
       if (val!=1){
-          return new ResponseEntity<>(val,null,HttpStatus.NO_CONTENT);
+          cabecera.add("errorMessage","No se pudo eliminar proveedor seleccionado");
+          return new ResponseEntity<>(0,cabecera,HttpStatus.NO_CONTENT);
       }
-        HttpHeaders cabecera = new HttpHeaders();
         cabecera.add("detailMessage","Proveedor eliminado exitosamente");
       return new ResponseEntity<>(val,cabecera,OK);
     }
 
 
+    @GetMapping(path = "/{codBarras}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProveedorTO> buscarPorCodBarras(@PathVariable(name="codBarras") String codBarras){
+        return new ResponseEntity<>(this.proveedorService.buscarProvPorCodBarrasRepu(codBarras),null,OK);
+    }
+
+    @GetMapping(path = "/empresasNom")
+    public ResponseEntity<?> listarEmpresasPorNombre(){
+        return new ResponseEntity<>(this.proveedorService.listarPorNombreEmpresa(),null,OK);
+    }
+
+    @GetMapping(path = "/listni",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ProveedorTO>> listarPorNombreOIdentifi(@RequestParam String nom_identi ){
+        return new ResponseEntity<>(this.proveedorService.buscarPorNombreOIdentifi(nom_identi),null,OK);
+    }
+
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<String> handleIllegalStateException(IllegalStateException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @GetMapping(path="/identifi",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProveedorTO> buscarPorIdentificacion(@RequestParam String identificacion){
+        return new ResponseEntity<>(this.proveedorService.buscarPorIdentificacion(identificacion),null,OK);
     }
 }

@@ -13,6 +13,8 @@ public interface IProveedorService {
 
     Integer eliminarProveedorPorNombre(String nombreEmpresa);
 
+    Integer eliminarProveedorPorIdentificacion(String identificacion);
+
     ProveedorTO modificarProveedor(ProveedorTO proveedor);
     List<ProveedorTO> buscarTodosProveedores();
 
@@ -20,5 +22,15 @@ public interface IProveedorService {
      ProveedorTO buscarPorNombre(String nombreEmpresa);
 
     List<ProveedorTO> listarPorNombre(String nombreEmpresa);
+
+    ProveedorTO buscarPorIdentificacion(String identificacion);
+
+    void actualizarProveedor(Proveedor proveedor);
+
+    ProveedorTO buscarProvPorCodBarrasRepu(String codBarras);
+
+    List<String> listarPorNombreEmpresa();
+
+    List<ProveedorTO> buscarPorNombreOIdentifi(String nombreOIdenti);
 
 }

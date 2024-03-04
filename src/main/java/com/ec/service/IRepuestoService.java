@@ -1,15 +1,24 @@
 package com.ec.service;
 
+import com.ec.entity.Proveedor;
 import com.ec.entity.Repuesto;
+import com.ec.service.dto.RepuestoTO;
 
 import java.util.List;
 
 public interface IRepuestoService {
-    void crearRepuesto(Repuesto repuesto);
+    Repuesto crearRepuesto(Repuesto repuesto);
     Repuesto buscarRepuesto(Integer id);
-    void modificarRepuesto(Repuesto repuesto);
+    RepuestoTO modificarRepuesto(RepuestoTO repuesto);
 
-    void eliminarRepuesto(Integer id);
+    Integer eliminarRepuestoPorCodBarras(String codBarras);
 
-    List<Repuesto> buscarTodosRepuestos();
+    List<RepuestoTO> buscarTodosRepuestos();
+
+    void crearRepuesto(List<RepuestoTO>repuestosList,String nomEmpresaProveedor);
+
+    RepuestoTO buscarPorCodBarras(String codBarras);
+
+    List<RepuestoTO> buscarPorCodBarraONombre(String codBarrasONombre);
+
 }
